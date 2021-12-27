@@ -14,13 +14,14 @@ fetch_caddy() {
         echo "Found in cache."
     else
         echo "Need to download again."
-        echo  "curl $caddy_url --output $dest_path"
+        curl $caddy_url --output $dest_path
     fi
     
-    echo "cp $dest_path $build_dir/cappy"
+    cp $dest_path $build_dir/caddy
 }
 
 fetch_caddy
+curl $caddy_url --output $dest_path
 caddy_version=$($build_dir/caddy -version)
 echo "-----> Installed ${caddy_version} to /app/bin"
 
