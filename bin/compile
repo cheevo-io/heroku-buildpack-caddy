@@ -16,6 +16,7 @@ else
 fi
 
 cp $cache_caddy $build_dir/caddy
+chmod +x $build_dir/caddy
 caddy_version=$($build_dir/caddy -version)
 echo "-----> Installed ${caddy_version} to /app/bin"
 
