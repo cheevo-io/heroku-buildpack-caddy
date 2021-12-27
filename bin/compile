@@ -17,8 +17,6 @@ fi
 
 cp $cache_caddy $build_dir/caddy
 chmod +x $build_dir/caddy
-$build_dir/caddy version
-$build_dir/caddy
-echo "Done!"
+echo "Caddy Version: $(./caddy version)"
 
 exit 0
