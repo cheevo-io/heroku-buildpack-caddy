@@ -7,19 +7,21 @@ build_dir=$1
 cache_dir=$2
 
 fetch_caddy() {
-    local caddy_url="https://caddyserver.com/download/linux/amd64?plugins=http.cache,http.cors,http.git,http.jwt,http.minify,http.nobots,http.ratelimit,http.realip"
+    local caddy_url="https://caddyserver.com/api/download?os=linux&arch=amd64"
     local dest_path="$cache_dir/caddy"
 
     if [ -f "$dest_path" ]; then
-        echo -n "cat $dest_path"
+        echo "Found in cache."
     else
-        echo -n "curl -L $caddy_url"
+        echo "Need to download again."
+        echo  "curl $caddy_url --output $dest_path"
     fi
+    
+    echo "cp $dest_path $build_dir/cappy"
 }
 
-mkdir -p $build_dir/bin
-$(fetch_caddy) | tar xzC $build_dir/bin
-caddy_version=$($build_dir/bin/caddy -version)
+fetch_caddy
+caddy_version=$($build_dir/caddy -version)
 echo "-----> Installed ${caddy_version} to /app/bin"
 
 exit 0
