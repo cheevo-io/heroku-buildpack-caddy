@@ -4,24 +4,18 @@
 set -e
 
 build_dir=$1
-cache_dir=$2
+cache_caddy="$2/caddy"
+caddy_url="https://caddyserver.com/api/download?os=linux&arch=amd64"
 
-fetch_caddy() {
-    local caddy_url="https://caddyserver.com/api/download?os=linux&arch=amd64"
-    local dest_path="$cache_dir/caddy"
 
-    if [ -f "$dest_path" ]; then
-        echo "Found in cache."
-    else
-        echo "Need to download again."
-        curl $caddy_url --output $dest_path
-    fi
-    
-    cp $dest_path $build_dir/caddy
-}
+if [ -f "$cache_caddy" ]; then
+    echo "Found in cache."
+else
+    echo "Need to download again."
+    curl $caddy_url --output $cache_caddy
+fi
 
-fetch_caddy
-curl $caddy_url --output $dest_path
+cp $cache_caddy $build_dir/caddy
 caddy_version=$($build_dir/caddy -version)
 echo "-----> Installed ${caddy_version} to /app/bin"
 
