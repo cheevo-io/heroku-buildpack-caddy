@@ -20,8 +20,10 @@ echo "Copying..."
 cp $cache_caddy $build_dir/caddy
 echo "Chmodding..."
 chmod +x $build_dir/caddy
-echo "Getting version..."
-caddy_version=$($build_dir/caddy -version)
-echo "-----> Installed ${caddy_version} to /app/bin"
+echo "Getting version:"
+$build_dir/caddy version
+echo "Running caddy"
+$build_dir/caddy
+echo "Done!"
 
 exit 0
