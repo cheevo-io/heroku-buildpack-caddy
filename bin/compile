@@ -19,7 +19,4 @@ cp $cache_caddy $build_dir/caddy
 chmod +x $build_dir/caddy
 echo "Caddy Version: $(./caddy version)"
 
-echo "Systemd"
-systemctl --version
-
 exit 0
